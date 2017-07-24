@@ -10,6 +10,9 @@ const initialState = {
 }
 
 const actionTypes = {
+  LOGIN_REQUEST: 'LOGIN_REQUEST',
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGIN_FAIL: 'LOGIN_FAIL',
   SIGNUP_REQUEST: 'SIGNUP_REQUEST',
   SIGNUP_SUCCESS: 'SIGNUP_SUCCESS',
   SIGNUP_FAIL: 'SIGNUP_FAIL',
@@ -25,6 +28,13 @@ export const getVerifyCode = () => dispatch => {
   return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
 }
 
+export const onLogin = (formProps) => async dispatch => {
+  dispatch({ type: actionTypes.LOGIN_REQUEST });
+  // api is temp
+  const res = await axios.post('/api/auth/signup', formProps);
+  return dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.data })
+}
+
 export const onSignup = (formProps) => async dispatch => {
   dispatch({ type: actionTypes.SIGNUP_REQUEST });
   const res = await axios.post('/api/auth/signup', formProps);
@@ -38,10 +48,13 @@ export const switchType = (type) => dispatch => {
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SIGNUP_REQUEST:
+    case actionTypes.LOGIN_REQUEST:
       return {
         ...state,
         isLoading: true,
       }
+    case actionTypes.LOGIN_SUCCESS:
+    case actionTypes.LOGIN_FAIL:
     case actionTypes.SIGNUP_SUCCESS:
     case actionTypes.SIGNUP_FAIL:
       return {

@@ -1,7 +1,6 @@
 {
     "mode": "production",
     "apiServer": "http://localhost:10000",
-    "memberServer": "http://localhost:8000",
     "headers": {
         "X-NOWnews-API": ["NOWnewsIsFeature"]
     }
