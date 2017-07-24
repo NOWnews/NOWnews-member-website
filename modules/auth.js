@@ -10,6 +10,9 @@ const initialState = {
 }
 
 const actionTypes = {
+  FORGOT_PW_REQUEST: 'FORGOT_PW_REQUEST',
+  FORGOT_PW_SUCCESS: 'FORGOT_PW_SUCCESS',
+  FORGOT_PW_FAIL: 'FORGOT_PW_FAIL',
   LOGIN_REQUEST: 'LOGIN_REQUEST',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   LOGIN_FAIL: 'LOGIN_FAIL',
@@ -26,6 +29,13 @@ export const getVerifyCode = () => dispatch => {
   axios.get('/api/auth/verifyCode');
   dispatch({ type: actionTypes.START_TIMER })
   return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
+}
+
+export const onForgotPw = (formProps) => async dispatch => {
+  dispatch({ type: actionTypes.FORGOT_PW_REQUEST });
+  // api is temp
+  const res = await axios.post('/api/auth/signup', formProps);
+  return dispatch({ type: actionTypes.FORGOT_PW_SUCCESS, payload: res.data })
 }
 
 export const onLogin = (formProps) => async dispatch => {
@@ -47,12 +57,15 @@ export const switchType = (type) => dispatch => {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SIGNUP_REQUEST:
+    case actionTypes.FORGOT_PW_REQUEST:
     case actionTypes.LOGIN_REQUEST:
+    case actionTypes.SIGNUP_REQUEST:
       return {
         ...state,
         isLoading: true,
       }
+    case actionTypes.FORGOT_PW_SUCCESS:
+    case actionTypes.FORGOT_PW_FAIL:
     case actionTypes.LOGIN_SUCCESS:
     case actionTypes.LOGIN_FAIL:
     case actionTypes.SIGNUP_SUCCESS:

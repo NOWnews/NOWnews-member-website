@@ -66,7 +66,7 @@ export class LoginComponent extends Component {
           </Form>
         </Segment>
         <Segment textAlign='center'>
-          還不是會員 ?  <a href='/signup'>註冊</a>
+          沒辦法登入嗎？  <a href='/signup'>註冊</a>  |  <a href='/forgotPw'>忘記密碼</a>
         </Segment>
       </div>
     )

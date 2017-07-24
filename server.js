@@ -22,6 +22,14 @@ app.prepare().then(() => {
     return app.render(req, res, '/signup', req.query)
   })
 
+  server.get('/resetPw', (req, res) => {
+    return app.render(req, res, '/resetPw', req.query)
+  })
+
+  server.get('/forgotPw', (req, res) => {
+    return app.render(req, res, '/forgotPw', req.query)
+  })
+
   server.get('/login', (req, res) => {
     return app.render(req, res, '/login', req.query)
   })
