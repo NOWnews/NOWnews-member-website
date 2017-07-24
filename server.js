@@ -19,23 +19,23 @@ app.prepare().then(() => {
   server.use(api(server))
 
   server.get('/signup', (req, res) => {
-    return app.render(req, res, '/signup', req.query)
+    return app.render(req, res, '/auth/signup', req.query)
   })
 
   server.get('/resetPw', (req, res) => {
-    return app.render(req, res, '/resetPw', req.query)
+    return app.render(req, res, '/auth/resetPw', req.query)
   })
 
   server.get('/forgotPw', (req, res) => {
-    return app.render(req, res, '/forgotPw', req.query)
+    return app.render(req, res, '/auth/forgotPw', req.query)
   })
 
   server.get('/login', (req, res) => {
-    return app.render(req, res, '/login', req.query)
+    return app.render(req, res, '/auth/login', req.query)
   })
 
   server.get('/', (req, res) => {
-    return app.render(req, res, '/login', req.query)
+    return app.render(req, res, '/auth/login', req.query)
   })
 
   server.get('*', (req, res) => {

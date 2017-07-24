@@ -9,9 +9,7 @@ Install it and run:
 
 ```bash
 npm install
-npm start  // no watch
-or
-npmr run watch
+npm start  // npm run dev
 ```
 
 # for production

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { initStore } from '../store'
+import { initStore } from '../../store'
 import withRedux from 'next-redux-wrapper'
-import guestLayout from '../hocs/guestLayout'
-import ResetPwForm from '../components/auth/ResetPwForm'
+import guestLayout from '../../hocs/guestLayout'
+import ResetPwForm from '../../components/auth/ResetPwForm'
 
 const pageTitle = '重設密碼 | NOWnews 會員系統'
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { initStore } from '../store'
+import { initStore } from '../../store'
 import withRedux from 'next-redux-wrapper'
-import guestLayout from '../hocs/guestLayout'
-import LoginForm from '../components/auth/LoginForm'
+import guestLayout from '../../hocs/guestLayout'
+import LoginForm from '../../components/auth/LoginForm'
 
 const pageTitle = 'NOWnews 會員系統'
 
