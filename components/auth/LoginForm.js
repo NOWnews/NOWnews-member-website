@@ -16,6 +16,7 @@ export class LoginComponent extends Component {
   async handleFormSubmit (formProps) {
     try {
       const response = await this.props.onLogin(formProps)
+      window.location = '/member/me'
     } catch (e) {
 
     }
@@ -66,7 +67,7 @@ export class LoginComponent extends Component {
           </Form>
         </Segment>
         <Segment textAlign='center'>
-          沒辦法登入嗎？  <a href='/signup'>註冊</a>  |  <a href='/forgotPw'>忘記密碼</a>
+          沒辦法登入嗎？  <a href='/auth/signup'>註冊</a>  |  <a href='/auth/forgotPw'>忘記密碼</a>
         </Segment>
       </div>
     )

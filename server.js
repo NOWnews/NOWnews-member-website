@@ -34,6 +34,10 @@ app.prepare().then(() => {
     return app.render(req, res, '/auth/login', req.query)
   })
 
+  server.get('/member/me', (req, res) => {
+    return app.render(req, res, '/member/me', req.query)
+  })
+
   server.get('/', (req, res) => {
     return app.render(req, res, '/auth/login', req.query)
   })

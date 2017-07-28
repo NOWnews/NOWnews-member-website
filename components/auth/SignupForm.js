@@ -91,7 +91,7 @@ export class SignupComponent extends Component {
           </Form>
         </Segment>
         <Segment textAlign='center'>
-          已經擁有會員 ?  <a href='/login'>登入</a>
+          已經擁有會員 ?  <a href='/auth/login'>登入</a>
         </Segment>
       </div>
     )

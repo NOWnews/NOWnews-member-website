@@ -46,42 +46,40 @@ export class ForgotPwComponent extends Component {
           </Form.Field>
 
           {/* account is phone */}
-          {isPhone && <div>
-            <Form.Group widths='equal'>
-              <Form.Field width={4}>
-                <Field component={renderSelect} required label='區碼' name='areaCode' options={countryOptions} defaultValue='+886' />
-              </Form.Field>
-              <Form.Field width={12}>
-                <Field component={renderInput} type='text' required label='手機' name='phone' />
-              </Form.Field>
-            </Form.Group>
-            <Form.Group widths='equal'>
-              <Form.Field width={10}>
-                <Field component={renderInput} type='text' required label='驗證碼' name='code' />
-              </Form.Field>
-              <Form.Field width={3}>
-                <Button type='button' content='取得驗證碼' fluid
-                  color='yellow'
-                  loading={showVerifyCodeTimer}
-                  onClick={this.props.getVerifyCode} />
-                {showVerifyCodeTimer && <span>還有 {verifyCodeTimer} 秒 ...</span>}
-              </Form.Field>
-            </Form.Group>
-            <Form.Group widths='equal'>
-              <Form.Field>
-                <Field component={renderInput} type='password' required label='新密碼' name='password' type='password'/>
-              </Form.Field>
-              <Form.Field>
-                <Field component={renderInput} type='password' required label='確認密碼' name='confirmPassword' type='password'/>
-              </Form.Field>
-            </Form.Group>
-          </div>}
+          {isPhone && <Form.Group widths='equal'>
+            <Form.Field width={4}>
+              <Field component={renderSelect} required label='區碼' name='areaCode' options={countryOptions} defaultValue='+886' />
+            </Form.Field>
+            <Form.Field width={12}>
+              <Field component={renderInput} type='text' required label='手機' name='phone' />
+            </Form.Field>
+          </Form.Group>}
 
           {/* account is email */}
           {isEmail && <Form.Field>
             <Field component={renderInput} type='email' required label='信箱' name='email' />
           </Form.Field>}
 
+          <Form.Group widths='equal'>
+            <Form.Field width={10}>
+              <Field component={renderInput} type='text' required label='驗證碼' name='code' />
+            </Form.Field>
+            <Form.Field width={3}>
+              <Button type='button' content='取得驗證碼' fluid
+                color='yellow'
+                loading={showVerifyCodeTimer}
+                onClick={this.props.getVerifyCode} />
+              {showVerifyCodeTimer && <span>還有 {verifyCodeTimer} 秒 ...</span>}
+            </Form.Field>
+          </Form.Group>
+          <Form.Group widths='equal'>
+            <Form.Field>
+              <Field component={renderInput} type='password' required label='新密碼' name='password' type='password'/>
+            </Form.Field>
+            <Form.Field>
+              <Field component={renderInput} type='password' required label='確認新密碼' name='confirmPassword' type='password'/>
+            </Form.Field>
+          </Form.Group>
           <Button type='submit' fluid primary loading={isLoading}>送出</Button>
         </Form>
       </Segment>

@@ -27,11 +27,16 @@ export class ResetPwComponent extends Component {
       <Segment stacked>
         <Form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
           <Form.Field>
-            <Field component={renderInput} type='password' required label='新密碼' name='password' type='password'/>
+            <Field component={renderInput} type='password' required label='舊密碼' name='oldPassword' />
           </Form.Field>
-          <Form.Field>
-            <Field component={renderInput} type='password' required label='確認密碼' name='confirmPassword' type='password'/>
-          </Form.Field>
+          <Form.Group widths='equal'>
+            <Form.Field>
+              <Field component={renderInput} type='password' required label='新密碼' name='password' type='password'/>
+            </Form.Field>
+            <Form.Field>
+              <Field component={renderInput} type='password' required label='確認新密碼' name='confirmPassword' type='password'/>
+            </Form.Field>
+          </Form.Group>
           <Button type='submit' fluid primary loading={isLoading}>更新密碼</Button>
         </Form>
       </Segment>
@@ -41,7 +46,7 @@ export class ResetPwComponent extends Component {
 
 const validate = (formProps) => {
   let errors = {}
-  const requiredFields = ['password', 'confirmPassword']
+  const requiredFields = ['oldPassword', 'password', 'confirmPassword']
 
   requiredFields.forEach(field => {
     if (!formProps[field]) {
