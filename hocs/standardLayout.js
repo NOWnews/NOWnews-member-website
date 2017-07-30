@@ -38,12 +38,12 @@ const standardLayoutHoc = (Page, activeItem, title) => {
           `}</style>
           <Menu inverted id='mainMenu'>
             <Menu.Item>
-              <a href='/'>NOWnews 會員系統</a>
-            </Menu.Item>
-            <Menu.Item position='right'>
               <label onClick={this.toggleVisibility}>
                 <Icon name='content' />
               </label>
+            </Menu.Item>
+            <Menu.Item>
+              <a href='/'>NOWnews 會員系統</a>
             </Menu.Item>
           </Menu>
           <Sidebar.Pushable>
@@ -51,7 +51,6 @@ const standardLayoutHoc = (Page, activeItem, title) => {
               as={Menu}
               animation='overlay'
               width='thin'
-              direction='right'
               visible={visible}
               icon='labeled'
               vertical

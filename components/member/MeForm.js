@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
 import { switchType, getVerifyCode, onSignup }  from '../../modules/auth'
-import { Button, Form, Modal, Segment, Header } from 'semantic-ui-react'
+import { Button, Form, Modal, Header } from 'semantic-ui-react'
 
 export class MeComponent extends Component {
   constructor (props, context) {
@@ -29,15 +29,13 @@ export class MeComponent extends Component {
     const showVerifyCodeTimer = verifyCodeTimer > 0;
     return (
       <div>
-        <Segment stacked>
-          <Header textAlign='center'>會員資料</Header>
-          <Form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-            <Form.Field>
-              <Field component={renderInput} type='text' required label='暱稱（可中文、英文、數字）' name='nickname' />
-            </Form.Field>
-            <Button type='submit' fluid primary loading={isLoading}>送出</Button>
-          </Form>
-        </Segment>
+        <Header textAlign='center' as='h1' >會員資料</Header>
+        <Form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
+          <Form.Field>
+            <Field component={renderInput} type='text' required label='暱稱（可中文、英文、數字）' name='nickname' />
+          </Form.Field>
+          <Button type='submit' fluid primary loading={isLoading}>送出</Button>
+        </Form>
       </div>
     )
   }
