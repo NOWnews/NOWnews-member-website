@@ -2,7 +2,7 @@ import React from 'react'
 import Router from 'next/router'
 import { connect } from 'react-redux'
 import Head from 'next/head'
-import { Sidebar, Segment, Icon, Container, Header, Image, Menu, Button } from 'semantic-ui-react';
+import { Sidebar, Icon, Container, Menu } from 'semantic-ui-react';
 
 const standardLayoutHoc = (Page, activeItem, title) => {
   class standardLayout extends React.Component {
@@ -23,17 +23,29 @@ const standardLayoutHoc = (Page, activeItem, title) => {
       const { visible } = this.state
       return (
         <div>
+          <Head>
+            <title>{title}</title>
+          </Head>
           <style>{`
               #root {
                 height: 100vh;
+                margin-top: 20px;
               }
-              #root > .grid {
+              #mainMenu {
+                margin: 0 !important;
                 border-radius: 0;
               }
-              .padding0 {
-                padding: 0 !important;
-              }
           `}</style>
+          <Menu inverted id='mainMenu'>
+            <Menu.Item>
+              <a href='/'>NOWnews 會員系統</a>
+            </Menu.Item>
+            <Menu.Item position='right'>
+              <label onClick={this.toggleVisibility}>
+                <Icon name='content' />
+              </label>
+            </Menu.Item>
+          </Menu>
           <Sidebar.Pushable>
             <Sidebar
               as={Menu}
@@ -45,46 +57,19 @@ const standardLayoutHoc = (Page, activeItem, title) => {
               vertical
               inverted>
               <Menu.Item name='user' active={activeItem === 'me'}>
-                <a href='/member/me'>
+                {activeItem === 'me' && <span><Icon name='user' />會員資料</span>}
+                {activeItem !== 'me' && <a href='/member/me'>
                   <Icon name='user' />會員資料
-                </a>
+                </a>}
               </Menu.Item>
               <Menu.Item>
                 <a href='/auth/logout'>
                   <Icon name='log out' />登出
                 </a>
               </Menu.Item>
-              <Menu.Item position='right'>
-                <label onClick={this.toggleVisibility}>
-                  <Icon name='angle double right' />返回
-                </label>
-              </Menu.Item>
             </Sidebar>
             <Sidebar.Pusher>
               <div id='root'>
-                <Menu inverted className='grid'>
-                  <div className='padding0 row computer only'>
-                    <Menu.Item>
-                      NOWnews 會員系統
-                    </Menu.Item>
-                    <Menu.Item  active={activeItem === 'me'}>
-                      <a href='/member/me'>會員資料</a>
-                    </Menu.Item>
-                    <Menu.Item position='right'>
-                      <a href='/auth/logout'>登出</a>
-                    </Menu.Item>
-                  </div>
-                  <div className='padding0 row mobile only'>
-                    <Menu.Item>
-                      NOWnews 會員系統
-                    </Menu.Item>
-                    <Menu.Item position='right'>
-                      <label onClick={this.toggleVisibility}>
-                        <Icon name='content' />
-                      </label>
-                    </Menu.Item>
-                  </div>
-                </Menu>
                 <Container className='standard-layout'>
                   <Page {...this.props} />
                 </Container>
