@@ -1,13 +1,15 @@
 import express from 'express';
+import login from './login';
 import signup from './signup';
-import verifyCode from './verifyCode';
 
 let router = express.Router();
 
+console.log('auth index');
+
+router.route('/login')
+    .post(login);
+
 router.route('/signup')
     .post(signup);
-
-router.route('/verifyCode')
-    .get(verifyCode);
 
 module.exports = router;

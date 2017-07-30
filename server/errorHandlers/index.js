@@ -1,0 +1,27 @@
+module.exports = function(app) {
+
+    app.use(function(err, req, res, next) {
+        console.log('errorhand')
+        let { data, status } = err.response ? err.response : err;
+
+        if (typeof data === 'string'){
+            data = { statusCode: status, message: data };
+        }
+
+        let errObject = {
+            ...data, //include meesage & status code
+        };
+
+        console.log('-------------- ERROR --------------');
+        console.log(errObject);
+        console.log('-------------- ERROR --------------');
+
+        res.status(errObject.statusCode || 500);
+
+        return res.json(errObject);
+    });
+
+    return function(req, res, next) {
+        return next();
+    };
+};

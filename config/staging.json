@@ -1,5 +1,5 @@
 {
-    "mode": "develop",
+    "mode": "staging",
     "apiServer": "http://35.194.141.188:8080/v1",
     "headers": {
         "X-NOWnews-API": ["NOWnewsIsFeature"]

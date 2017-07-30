@@ -10,13 +10,16 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 const port = process.env.PORT || 8000
 const server = express()
-const api = require('./api')
+const apis = require('./server/apis')
+const errorHandlers = require('./server/errorHandlers')
 
-
+console.log(apis, '!!!');
 app.prepare().then(() => {
   server.use(bodyParser.json())
 
-  server.use(api(server))
+  server.use(apis(server))
+
+  // server.use(errorHandlers(server));
 
   server.get('/signup', (req, res) => {
     return app.render(req, res, '/auth/signup', req.query)

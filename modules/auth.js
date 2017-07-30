@@ -26,7 +26,7 @@ const actionTypes = {
 
 
 export const getVerifyCode = () => dispatch => {
-  axios.get('/api/auth/verifyCode');
+  axios.get('/api/account/verifyCode');
   dispatch({ type: actionTypes.START_TIMER })
   return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
 }
@@ -40,8 +40,7 @@ export const onForgotPw = (formProps) => async dispatch => {
 
 export const onLogin = (formProps) => async dispatch => {
   dispatch({ type: actionTypes.LOGIN_REQUEST });
-  // api is temp
-  const res = await axios.post('/api/auth/signup', formProps);
+  const res = await axios.post('/api/auth/login', formProps);
   return dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.data })
 }
 
