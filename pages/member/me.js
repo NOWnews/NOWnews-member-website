@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { initStore } from '../../store'
+import { initStore } from '../../modules/store'
 import withRedux from 'next-redux-wrapper'
 import standardLayout from '../../hocs/standardLayout'
 import MeForm from '../../components/member/MeForm'

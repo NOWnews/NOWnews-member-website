@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { initStore } from '../../store'
+import { initStore } from '../../modules/store'
 import withRedux from 'next-redux-wrapper'
 import guestLayout from '../../hocs/guestLayout'
 import ForgotPwForm from '../../components/auth/ForgotPwForm'
