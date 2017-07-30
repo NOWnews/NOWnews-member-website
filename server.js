@@ -13,7 +13,6 @@ const server = express()
 const apis = require('./server/apis')
 const errorHandlers = require('./server/errorHandlers')
 
-console.log(apis, '!!!');
 app.prepare().then(() => {
   server.use(bodyParser.json())
 

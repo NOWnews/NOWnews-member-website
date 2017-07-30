@@ -5,7 +5,7 @@
     "start": "npm run dev",
     "build": "next build",
     "prod": "NODE_ENV=production node server.js",
-    "dev": "NODE_ENV=develop DEBUG=NOWnews-member-website* nodemon server.js -w server.js"
+    "dev": "NODE_ENV=develop DEBUG=NOWnews-member-website* nodemon server.js"
   },
   "engines": {
     "node": "6.9.x"

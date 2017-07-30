@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { reducer as formReducer } from 'redux-form'
-import { authReducer } from './modules/auth'
+import { authReducer } from './auth'
 
 export const initStore = (initialState = {}) => {
   // mirror of state from original app

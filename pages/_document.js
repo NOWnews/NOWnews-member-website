@@ -1,7 +1,7 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document'
 import withRedux from 'next-redux-wrapper'
-import { initStore } from '../store'
+import { initStore } from '../modules/store'
 
 class MyDocument extends Document {
   static getInitialProps ({ renderPage }) {
