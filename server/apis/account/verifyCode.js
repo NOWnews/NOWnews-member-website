@@ -4,19 +4,13 @@ const debug = Debug('NOWnews-member-website: api:controllers:account:verifyCode'
 module.exports = async (req, res, next) => {
 
     try {
-        let data = req.body;
-        data = {
-            provider: 'email',
-            email: 'ali.li@nownews.com',
-        }
-        let a = qs.stringify(data);
-        console.log(a, '!!verify');
-        let { data: member } = await apiServ.get(`/account/verify?${a}`);
-        console.log(member);
-        return res.json(member);
+        const data = req.body;
+        const formatData = qs.stringify(data);
+        const { data: result } = await apiServ.get(`/account/verify?${formatData}`);
+
+        return res.json(result);
 
     } catch(err) {
-        console.log(err, '!!!');
-        return res.json(err);
+        return next(err);
     }
 };

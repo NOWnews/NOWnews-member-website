@@ -37,10 +37,8 @@ const standardLayoutHoc = (Page, activeItem, title) => {
               }
           `}</style>
           <Menu inverted id='mainMenu'>
-            <Menu.Item>
-              <label onClick={this.toggleVisibility}>
-                <Icon name='content' />
-              </label>
+            <Menu.Item onClick={this.toggleVisibility}>
+              <Icon name='content' />
             </Menu.Item>
             <Menu.Item>
               <a href='/'>NOWnews 會員系統</a>
@@ -62,7 +60,7 @@ const standardLayoutHoc = (Page, activeItem, title) => {
                 </a>}
               </Menu.Item>
               <Menu.Item>
-                <a href='/auth/logout'>
+                <a href='/api/auth/logout'>
                   <Icon name='log out' />登出
                 </a>
               </Menu.Item>

@@ -2,6 +2,7 @@ require('babel-core/register')
 require('babel-polyfill')
 require('./global')
 const express = require('express')
+const cookieSession = require('cookie-session')
 const next = require('next')
 const { parse } = require('url')
 const bodyParser = require('body-parser') // turns the body into json object
@@ -16,9 +17,16 @@ const errorHandlers = require('./server/errorHandlers')
 app.prepare().then(() => {
   server.use(bodyParser.json())
 
+  server.set('trust proxy', 1) // trust first proxy
+
+  server.use(cookieSession({
+    name: 'session',
+    keys: ['NOWnews-member-website']
+  }))
+
   server.use(apis(server))
 
-  // server.use(errorHandlers(server));
+  server.use(errorHandlers(server));
 
   server.get('/signup', (req, res) => {
     return app.render(req, res, '/auth/signup', req.query)
@@ -37,11 +45,17 @@ app.prepare().then(() => {
   })
 
   server.get('/member/me', (req, res) => {
-    return app.render(req, res, '/member/me', req.query)
+    if (req.session && req.session.member) {
+      return app.render(req, res, '/member/me', req.query)
+    }
+    return res.redirect('/login')
   })
 
   server.get('/', (req, res) => {
-    return app.render(req, res, '/auth/login', req.query)
+    if (req.session && req.session.member) {
+      return app.render(req, res, '/member/me', req.query)
+    }
+    return res.redirect('/login')
   })
 
   server.get('*', (req, res) => {
