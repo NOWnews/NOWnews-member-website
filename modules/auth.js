@@ -19,16 +19,16 @@ const actionTypes = {
 }
 
 
-export const getVerifyCode = () => dispatch => {
-  axios.get('/api/account/verifyCode');
-  dispatch({ type: actionTypes.START_TIMER })
+export const getVerifyCode = (formProps) => async dispatch => {
+  dispatch({ type: actionTypes.START_TIMER });
+  await axios.post('/api/account/verifyCode', formProps);
   return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
 }
 
 export const onForgotPw = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
+  dispatch({ type: actionTypes.START_TIMER });
   const res = await axios.post('/api/auth/forgotpw', formProps);
-  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
 }
 
 export const onLogin = (formProps) => async dispatch => {

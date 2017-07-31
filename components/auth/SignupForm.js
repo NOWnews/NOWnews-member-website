@@ -63,7 +63,7 @@ export class SignupComponent extends Component {
             </Form.Field>}
             <Form.Group widths='equal'>
               <Form.Field width={10}>
-                <Field component={renderInput} type='text' required label='驗證碼' name='code' />
+                <Field component={renderInput} type='text' required label='驗證碼' name='verifyCode' />
               </Form.Field>
               <Form.Field width={3}>
                 <Button type='button' content='取得驗證碼' fluid

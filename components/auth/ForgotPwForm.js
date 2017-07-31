@@ -4,18 +4,30 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
-import { switchType, onForgotPw }  from '../../modules/auth'
+import { switchType, onForgotPw, onResetPw }  from '../../modules/auth'
 import { Button, Form, Modal, Segment } from 'semantic-ui-react'
 
 export class ForgotPwComponent extends Component {
   constructor (props, context) {
     super(props, context)
+    this.getVerifyCode = this.getVerifyCode.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
   async handleFormSubmit (formProps) {
     try {
-      const response = await this.props.onForgotPw(formProps)
+      const response = await this.props.onResetPw(formProps)
+    } catch (e) {
+
+    }
+  }
+
+  async getVerifyCode () {
+    try {
+      const response = await this.props.onForgotPw({
+        provider: this.props.auth.type,
+        ...this.props.forgotPw.values
+      });
     } catch (e) {
 
     }
@@ -63,13 +75,13 @@ export class ForgotPwComponent extends Component {
 
             <Form.Group widths='equal'>
               <Form.Field width={10}>
-                <Field component={renderInput} type='text' required label='驗證碼' name='code' />
+                <Field component={renderInput} type='text' required label='驗證碼' name='verifyCode' />
               </Form.Field>
               <Form.Field width={3}>
                 <Button type='button' content='取得驗證碼' fluid
                   color='yellow'
                   loading={showVerifyCodeTimer}
-                  onClick={this.props.getVerifyCode} />
+                  onClick={this.getVerifyCode} />
                 {showVerifyCodeTimer && <span>還有 {verifyCodeTimer} 秒 ...</span>}
               </Form.Field>
             </Form.Group>
@@ -121,6 +133,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({switchType, onForgotPw}, dispatch)
+  return bindActionCreators({switchType, onForgotPw, onResetPw}, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPwForm)
