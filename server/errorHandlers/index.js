@@ -2,7 +2,6 @@ module.exports = function(app) {
 
     app.use(function(err, req, res, next) {
         let { data, status } = err.response ? err.response : err;
-        console.log('errorhand', err);
         if (typeof data === 'string'){
             data = { statusCode: status, message: data };
         }

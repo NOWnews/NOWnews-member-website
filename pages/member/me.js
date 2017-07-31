@@ -4,7 +4,7 @@ import withRedux from 'next-redux-wrapper'
 import standardLayout from '../../hocs/standardLayout'
 import MeForm from '../../components/member/MeForm'
 
-const pageTitle = 'NOWnews 會員系統'
+const pageTitle = 'NOWnews 會員系統 | 個人資料'
 const activeItem = 'me'
 
 export class MePage extends Component {

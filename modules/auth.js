@@ -10,15 +10,9 @@ const initialState = {
 }
 
 const actionTypes = {
-  FORGOT_PW_REQUEST: 'FORGOT_PW_REQUEST',
-  FORGOT_PW_SUCCESS: 'FORGOT_PW_SUCCESS',
-  FORGOT_PW_FAIL: 'FORGOT_PW_FAIL',
-  LOGIN_REQUEST: 'LOGIN_REQUEST',
-  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-  LOGIN_FAIL: 'LOGIN_FAIL',
-  SIGNUP_REQUEST: 'SIGNUP_REQUEST',
-  SIGNUP_SUCCESS: 'SIGNUP_SUCCESS',
-  SIGNUP_FAIL: 'SIGNUP_FAIL',
+  FORM_SUBMIT_REQUEST: 'FORM_SUBMIT_REQUEST',
+  FORM_SUBMIT_SUCCESS: 'FORM_SUBMIT_SUCCESS',
+  FORM_SUBMIT_FAIL: 'FORM_SUBMIT_FAIL',
   START_TIMER: 'START_TIMER',
   SWITHCH_TYPE: 'SWITHCH_TYPE',
   TICK: 'TICK'
@@ -32,22 +26,33 @@ export const getVerifyCode = () => dispatch => {
 }
 
 export const onForgotPw = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.FORGOT_PW_REQUEST });
-  // api is temp
-  const res = await axios.post('/api/auth/signup', formProps);
-  return dispatch({ type: actionTypes.FORGOT_PW_SUCCESS, payload: res.data })
+  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
+  const res = await axios.post('/api/auth/forgotpw', formProps);
+  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
 }
 
 export const onLogin = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.LOGIN_REQUEST });
+  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
   const res = await axios.post('/api/auth/login', formProps);
-  return dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.data })
+  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+}
+
+export const onResetPw = (formProps) => async dispatch => {
+  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
+  const res = await axios.patch('/api/auth/resetpw', formProps);
+  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
 }
 
 export const onSignup = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.SIGNUP_REQUEST });
+  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
   const res = await axios.post('/api/auth/signup', formProps);
-  return dispatch({ type: actionTypes.SIGNUP_SUCCESS, payload: res.data })
+  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+}
+
+export const onUpdatePw = (formProps) => async dispatch => {
+  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
+  const res = await axios.patch('/api/member/updatepw', formProps);
+  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
 }
 
 export const switchType = (type) => dispatch => {
@@ -56,19 +61,13 @@ export const switchType = (type) => dispatch => {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FORGOT_PW_REQUEST:
-    case actionTypes.LOGIN_REQUEST:
-    case actionTypes.SIGNUP_REQUEST:
+    case actionTypes.FORM_SUBMIT_REQUEST:
       return {
         ...state,
         isLoading: true,
       }
-    case actionTypes.FORGOT_PW_SUCCESS:
-    case actionTypes.FORGOT_PW_FAIL:
-    case actionTypes.LOGIN_SUCCESS:
-    case actionTypes.LOGIN_FAIL:
-    case actionTypes.SIGNUP_SUCCESS:
-    case actionTypes.SIGNUP_FAIL:
+    case actionTypes.FORM_SUBMIT_SUCCESS:
+    case actionTypes.FORM_SUBMIT_FAIL:
       return {
         ...state,
         isLoading: false,

@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
-import { onResetPw }  from '../../modules/auth'
-import { Button, Form, Modal, Segment } from 'semantic-ui-react'
+import { onUpdatePw }  from '../../modules/auth'
+import { Button, Form, Header, Segment } from 'semantic-ui-react'
 
-export class ResetPwComponent extends Component {
+export class UpdatePwComponent extends Component {
   constructor (props, context) {
     super(props, context)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -15,7 +15,7 @@ export class ResetPwComponent extends Component {
 
   async handleFormSubmit (formProps) {
     try {
-      const response = await this.props.onResetPw(formProps)
+      const response = await this.props.onUpdatePw(formProps)
     } catch (e) {
 
     }
@@ -24,7 +24,8 @@ export class ResetPwComponent extends Component {
   render () {
     const { isLoading } = this.props.auth;
     return (
-      <Segment stacked>
+      <div>
+        <Header textAlign='center' as='h1' >修改密碼</Header>
         <Form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
           <Form.Field>
             <Field component={renderInput} type='password' required label='舊密碼' name='oldPassword' />
@@ -37,9 +38,9 @@ export class ResetPwComponent extends Component {
               <Field component={renderInput} type='password' required label='確認新密碼' name='confirmPassword' type='password'/>
             </Form.Field>
           </Form.Group>
-          <Button type='submit' fluid primary loading={isLoading}>更新密碼</Button>
+          <Button type='submit' fluid primary loading={isLoading}>送出</Button>
         </Form>
-      </Segment>
+      </div>
     )
   }
 }
@@ -61,17 +62,17 @@ const validate = (formProps) => {
   return errors
 }
 
-const ResetPwForm = reduxForm({
-  form: 'resetPw',
+const UpdatePwForm = reduxForm({
+  form: 'updatePw',
   validate
-})(ResetPwComponent)
+})(UpdatePwComponent)
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  resetPw: state.form.resetPw
+  updatePw: state.form.updatePw
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({onResetPw}, dispatch)
+  return bindActionCreators({onUpdatePw}, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPwForm)
+export default connect(mapStateToProps, mapDispatchToProps)(UpdatePwForm)

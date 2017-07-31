@@ -27,8 +27,8 @@ export class ForgotPwComponent extends Component {
     const isEmail = type === 'email';
     const showVerifyCodeTimer = verifyCodeTimer > 0;
     const countryOptions = [
-      { key: 'taiwan', value: '+886', text: '台灣 +886'},
-      { key: 'china', value: '+86', text: '大陸 +86'}
+      { key: 'taiwan', value: '886', text: '台灣 +886'},
+      { key: 'china', value: '86', text: '大陸 +86'}
     ]
     return (
       <div>

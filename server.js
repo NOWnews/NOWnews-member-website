@@ -44,16 +44,23 @@ app.prepare().then(() => {
     return app.render(req, res, '/auth/login', req.query)
   })
 
-  server.get('/member/me', (req, res) => {
+  server.get('/member', (req, res) => {
     if (req.session && req.session.member) {
       return app.render(req, res, '/member/me', req.query)
     }
     return res.redirect('/login')
   })
 
+  server.get('/member/updatePw', (req, res) => {
+    if (req.session && req.session.member) {
+      return app.render(req, res, '/member/updatePw', req.query)
+    }
+    return res.redirect('/login')
+  })
+
   server.get('/', (req, res) => {
     if (req.session && req.session.member) {
-      return app.render(req, res, '/member/me', req.query)
+      return app.render(req, res, '/member/updatePw', req.query)
     }
     return res.redirect('/login')
   })

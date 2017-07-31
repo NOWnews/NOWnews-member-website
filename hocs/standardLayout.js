@@ -21,6 +21,10 @@ const standardLayoutHoc = (Page, activeItem, title) => {
 
     render () {
       const { visible } = this.state
+      const menus = [
+        {href: '/member', icon: 'user', name: '會員資料', isActive: 'me' === activeItem},
+        {href: '/member/updatepw', icon: 'privacy', name: '修改密碼', isActive: 'updatepw' === activeItem},
+      ];
       return (
         <div>
           <Head>
@@ -53,12 +57,13 @@ const standardLayoutHoc = (Page, activeItem, title) => {
               icon='labeled'
               vertical
               inverted>
-              <Menu.Item name='user' active={activeItem === 'me'}>
-                {activeItem === 'me' && <span><Icon name='user' />會員資料</span>}
-                {activeItem !== 'me' && <a href='/member/me'>
-                  <Icon name='user' />會員資料
-                </a>}
-              </Menu.Item>
+              {menus.map(({ href, icon, key, name, isActive }) =>
+                <Menu.Item key={icon} active={isActive}>
+                  {isActive && <span><Icon name={icon} />{name}</span>}
+                  {!isActive && <a href={href}>
+                    <Icon name={icon} />{name}
+                  </a>}
+                </Menu.Item>)}
               <Menu.Item>
                 <a href='/api/auth/logout'>
                   <Icon name='log out' />登出
