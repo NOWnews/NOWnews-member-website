@@ -1,24 +1,37 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Field, reduxForm } from 'redux-form'
+import { Button, Form, Modal, Segment } from 'semantic-ui-react'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
 import { switchType, getVerifyCode, onSignup }  from '../../modules/auth'
-import { Button, Form, Modal, Segment } from 'semantic-ui-react'
 
 export class SignupComponent extends Component {
   constructor (props, context) {
     super(props, context)
+    this.getVerifyCode = this.getVerifyCode.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
   async handleFormSubmit (formProps) {
     try {
-      const response = await this.props.onSignup(formProps)
-      window.alert('會員註冊完成！')
+      await this.props.onSignup(formProps)
+      toastr.success('註冊完成！');
     } catch (e) {
+      toastr.error(e.Message);
+    }
+  }
 
+  async getVerifyCode () {
+    try {
+      const response = await this.props.onForgotPw({
+        provider: this.props.auth.type,
+        ...this.props.forgotPw.values
+      });
+    } catch (e) {
+      toastr.error(e.Message);
     }
   }
 

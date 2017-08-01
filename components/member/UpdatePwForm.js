@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Field, reduxForm } from 'redux-form'
+import { Button, Form, Header, Segment } from 'semantic-ui-react'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
 import { onUpdatePw }  from '../../modules/auth'
-import { Button, Form, Header, Segment } from 'semantic-ui-react'
 
 export class UpdatePwComponent extends Component {
   constructor (props, context) {
@@ -15,9 +16,10 @@ export class UpdatePwComponent extends Component {
 
   async handleFormSubmit (formProps) {
     try {
-      const response = await this.props.onUpdatePw(formProps)
+      await this.props.onUpdatePw(formProps)
+      toastr.success('密碼更新成功');
     } catch (e) {
-
+      toastr.error(e.Message);
     }
   }
 

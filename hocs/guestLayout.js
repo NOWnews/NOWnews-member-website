@@ -1,4 +1,5 @@
 import React from 'react'
+import ReduxToastr from 'react-redux-toastr'
 import Router from 'next/router'
 import { connect } from 'react-redux'
 import Head from 'next/head'
@@ -41,6 +42,14 @@ const guestLayoutHoc = (Page, title = '') => {
               </Image.Group>
             </Header>
             <Page {...this.props} />
+            <ReduxToastr
+              timeOut={3000}
+              newestOnTop={false}
+              preventDuplicates
+              position="top-center"
+              transitionIn="fadeIn"
+              transitionOut="fadeOut"
+              progressBar/>
           </Container>
         </div>
       )

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Field, reduxForm } from 'redux-form'
+import { Button, Form, Modal, Segment } from 'semantic-ui-react'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
 import { switchType, onLogin }  from '../../modules/auth'
-import { Button, Form, Modal, Segment } from 'semantic-ui-react'
 
 export class LoginComponent extends Component {
   constructor (props, context) {
@@ -15,10 +16,10 @@ export class LoginComponent extends Component {
 
   async handleFormSubmit (formProps) {
     try {
-      const response = await this.props.onLogin(formProps)
+      await this.props.onLogin(formProps)
       window.location = '/member/me'
     } catch (e) {
-
+      toastr.error(e.Message);
     }
   }
 

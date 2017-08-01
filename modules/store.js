@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import { reducer as toastrReducer } from 'react-redux-toastr'
 import { reducer as formReducer } from 'redux-form'
 import { authReducer } from './auth'
 
@@ -8,7 +9,8 @@ export const initStore = (initialState = {}) => {
   // mirror of state from original app
   const reducers = combineReducers({
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    toastr: toastrReducer
   })
 
   let env = process.env.NODE_ENV || 'development'

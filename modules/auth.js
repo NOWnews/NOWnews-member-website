@@ -1,7 +1,8 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunkMiddleware from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunkMiddleware from 'redux-thunk';
 import axios from 'axios';
+
 const initialState = {
   error: null,
   isLoading: false,
@@ -14,44 +15,75 @@ const actionTypes = {
   FORM_SUBMIT_SUCCESS: 'FORM_SUBMIT_SUCCESS',
   FORM_SUBMIT_FAIL: 'FORM_SUBMIT_FAIL',
   START_TIMER: 'START_TIMER',
+  STOP_TIMER: 'STOP_TIMER',
   SWITHCH_TYPE: 'SWITHCH_TYPE',
   TICK: 'TICK'
 }
 
 export const getVerifyCode = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.START_TIMER });
-  await axios.post('/api/account/verifyCode', formProps);
-  return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
+  try {
+    dispatch({ type: actionTypes.START_TIMER });
+    await axios.post('/api/account/verifyCode', formProps);
+    return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
+  } catch ({ response }) {
+    dispatch({ type: actionTypes.STOP_TIMER });
+    throw(response.data)
+  }
 }
 
 export const onForgotPw = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.START_TIMER });
-  const res = await axios.post('/api/auth/forgotpw', formProps);
-  return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
+  try {
+    dispatch({ type: actionTypes.START_TIMER });
+    const res = await axios.post('/api/auth/forgotpw', formProps);
+    return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
+  } catch ({ response }) {
+    dispatch({ type: actionTypes.STOP_TIMER });
+    throw(response.data)
+  }
 }
 
 export const onLogin = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
-  const res = await axios.post('/api/auth/login', formProps);
-  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  try {
+    dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
+    const res = await axios.post('/api/auth/login', formProps);
+    dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  } catch ({ response }) {
+    dispatch({ type: actionTypes.FORM_SUBMIT_FAIL })
+    throw(response.data)
+  }
 }
 
 export const onResetPw = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
-  const res = await axios.patch('/api/auth/resetpw', formProps);
-  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  try {
+    dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
+    const res = await axios.patch('/api/auth/resetpw', formProps);
+    dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  } catch ({ response }) {
+    dispatch({ type: actionTypes.FORM_SUBMIT_FAIL })
+    throw(response.data)
+  }
 }
 
 export const onSignup = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
-  const res = await axios.post('/api/auth/signup', formProps);
-  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  try {
+    dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
+    const res = await axios.post('/api/auth/signup', formProps);
+    dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  } catch ({ response }) {
+    dispatch({ type: actionTypes.FORM_SUBMIT_FAIL })
+    throw(response.data)
+  }
 }
 
 export const onUpdatePw = (formProps) => async dispatch => {
-  dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
-  const res = await axios.patch('/api/member/updatepw', formProps);
-  return dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  try {
+    dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
+    const res = await axios.patch('/api/member/updatepw', formProps);
+    dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
+  } catch ({ response }) {
+    dispatch({ type: actionTypes.FORM_SUBMIT_FAIL })
+    throw(response.data)
+  }
 }
 
 export const switchType = (type) => dispatch => {
@@ -66,6 +98,10 @@ export const authReducer = (state = initialState, action) => {
         isLoading: true,
       }
     case actionTypes.FORM_SUBMIT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      }
     case actionTypes.FORM_SUBMIT_FAIL:
       return {
         ...state,
@@ -75,6 +111,11 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         verifyCodeTimer: 60
+      }
+    case actionTypes.STOP_TIMER:
+      return {
+        ...state,
+        verifyCodeTimer: 0
       }
     case actionTypes.SWITHCH_TYPE:
       return {

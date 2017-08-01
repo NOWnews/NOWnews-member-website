@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import { toastr } from 'react-redux-toastr'
 import { bindActionCreators } from 'redux'
+import { Field, reduxForm } from 'redux-form'
+import { Button, Form, Modal, Segment } from 'semantic-ui-react'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
 import { switchType, onForgotPw, onResetPw }  from '../../modules/auth'
-import { Button, Form, Modal, Segment } from 'semantic-ui-react'
 
 export class ForgotPwComponent extends Component {
   constructor (props, context) {
@@ -16,9 +17,10 @@ export class ForgotPwComponent extends Component {
 
   async handleFormSubmit (formProps) {
     try {
-      const response = await this.props.onResetPw(formProps)
+      await this.props.onResetPw(formProps)
+      toastr.success('密碼更新成功，請用新密碼嘗試登入！');
     } catch (e) {
-
+      toastr.error(e.Message);
     }
   }
 
@@ -29,7 +31,7 @@ export class ForgotPwComponent extends Component {
         ...this.props.forgotPw.values
       });
     } catch (e) {
-
+      toastr.error(e.Message);
     }
   }
 

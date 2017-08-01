@@ -1,4 +1,5 @@
 import React from 'react'
+import ReduxToastr from 'react-redux-toastr'
 import Router from 'next/router'
 import { connect } from 'react-redux'
 import Head from 'next/head'
@@ -78,6 +79,14 @@ const standardLayoutHoc = (Page, activeItem, title) => {
               </div>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
+          <ReduxToastr
+            timeOut={3000}
+            newestOnTop={false}
+            preventDuplicates
+            position="top-center"
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+            progressBar/>
         </div>
       )
     }

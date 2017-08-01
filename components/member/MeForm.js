@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Field, reduxForm } from 'redux-form'
+import { Button, Form, Modal, Header } from 'semantic-ui-react'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
 import { switchType, getVerifyCode, onSignup }  from '../../modules/auth'
-import { Button, Form, Modal, Header } from 'semantic-ui-react'
 
 export class MeComponent extends Component {
   constructor (props, context) {
@@ -16,9 +17,9 @@ export class MeComponent extends Component {
   async handleFormSubmit (formProps) {
     try {
       const response = await this.props.onSignup(formProps)
-      window.alert('更新完成');
+      toastr.success('更新成功！');
     } catch (e) {
-
+      toastr.error(e.Message);
     }
   }
 
