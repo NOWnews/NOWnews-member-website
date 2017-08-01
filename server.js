@@ -33,10 +33,6 @@ app.prepare().then(() => {
     return app.render(req, res, '/auth/signup', req.query)
   })
 
-  server.get('/resetPw', (req, res) => {
-    return app.render(req, res, '/auth/resetPw', req.query)
-  })
-
   server.get('/forgotPw', (req, res) => {
     return app.render(req, res, '/auth/forgotPw', req.query)
   })
