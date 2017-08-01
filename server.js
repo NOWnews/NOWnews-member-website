@@ -13,6 +13,7 @@ const port = process.env.PORT || 8000
 const server = express()
 const apis = require('./server/apis')
 const errorHandlers = require('./server/errorHandlers')
+const isAuthenticated = require('./server/middlewares/isAuthenticated')
 
 app.prepare().then(() => {
   server.use(bodyParser.json())
@@ -44,25 +45,16 @@ app.prepare().then(() => {
     return app.render(req, res, '/auth/login', req.query)
   })
 
-  server.get('/member', (req, res) => {
-    if (req.session && req.session.member) {
-      return app.render(req, res, '/member/me', req.query)
-    }
-    return res.redirect('/login')
+  server.get('/member', isAuthenticated, (req, res) => {
+    return app.render(req, res, '/member/me', req.query)
   })
 
-  server.get('/member/updatePw', (req, res) => {
-    if (req.session && req.session.member) {
-      return app.render(req, res, '/member/updatePw', req.query)
-    }
-    return res.redirect('/login')
+  server.get('/member/updatePw', isAuthenticated, (req, res) => {
+    return app.render(req, res, '/member/updatePw', req.query)
   })
 
-  server.get('/', (req, res) => {
-    if (req.session && req.session.member) {
-      return app.render(req, res, '/member/updatePw', req.query)
-    }
-    return res.redirect('/login')
+  server.get('/', isAuthenticated, (req, res) => {
+    return app.render(req, res, '/member/updatePw', req.query)
   })
 
   server.get('*', (req, res) => {
