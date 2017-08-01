@@ -61,7 +61,7 @@ export class ForgotPwComponent extends Component {
             {/* account is phone */}
             {isPhone && <Form.Group widths='equal'>
               <Form.Field width={4}>
-                <Field component={renderSelect} required label='區碼' name='areaCode' options={countryOptions} defaultValue='+886' />
+                <Field component={renderSelect} required label='區碼' name='countryCode' options={countryOptions} defaultValue='+886' />
               </Form.Field>
               <Form.Field width={12}>
                 <Field component={renderInput} type='text' required label='手機' name='phone' />
@@ -106,7 +106,7 @@ export class ForgotPwComponent extends Component {
 
 const validate = (formProps) => {
   let errors = {}
-  const requiredFields = ['email', 'password', 'confirmPassword', 'areaCode', 'code', 'nickname', 'phone']
+  const requiredFields = ['email', 'password', 'confirmPassword', 'countryCode', 'verifyCode', 'nickname', 'phone']
 
   requiredFields.forEach(field => {
     if (!formProps[field]) {

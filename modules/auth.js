@@ -18,7 +18,6 @@ const actionTypes = {
   TICK: 'TICK'
 }
 
-
 export const getVerifyCode = (formProps) => async dispatch => {
   dispatch({ type: actionTypes.START_TIMER });
   await axios.post('/api/account/verifyCode', formProps);

@@ -14,7 +14,7 @@ module.exports = function(app) {
         console.log(errObject);
         console.log('-------------- ERROR --------------');
 
-        res.status(errObject.statusCode || 500);
+        res.status(errObject.Status || 500);
 
         return res.json(errObject);
     });
