@@ -6,8 +6,8 @@ const cookieSession = require('cookie-session')
 const next = require('next')
 const { parse } = require('url')
 const bodyParser = require('body-parser') // turns the body into json object
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
+const isDev = process.env.NODE_ENV === 'develop'
+const app = next({ dev: isDev })
 const handle = app.getRequestHandler()
 const port = process.env.PORT || 8000
 const server = express()
