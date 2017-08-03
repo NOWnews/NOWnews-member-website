@@ -45,7 +45,7 @@ export const onForgotPw = (formProps) => async dispatch => {
 export const onLogin = (formProps) => async dispatch => {
   try {
     dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
-    const res = await axios.post('/api/auth/login', formProps);
+    const res = await axios.post(`/api/auth/login${window.location.search}`, formProps);
     dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
   } catch ({ response }) {
     dispatch({ type: actionTypes.FORM_SUBMIT_FAIL })
@@ -67,7 +67,7 @@ export const onResetPw = (formProps) => async dispatch => {
 export const onSignup = (formProps) => async dispatch => {
   try {
     dispatch({ type: actionTypes.FORM_SUBMIT_REQUEST });
-    const res = await axios.post('/api/auth/signup', formProps);
+    const res = await axios.post(`/api/auth/signup${window.location.search}`, formProps);
     dispatch({ type: actionTypes.FORM_SUBMIT_SUCCESS, payload: res.data })
   } catch ({ response }) {
     dispatch({ type: actionTypes.FORM_SUBMIT_FAIL })
