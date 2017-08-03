@@ -53,7 +53,7 @@ export class LoginComponent extends Component {
             {/* account is phone */}
             {isPhone && <Form.Group widths='equal'>
               <Form.Field width={4}>
-                <Field component={renderSelect} required label='區碼' name='areaCode' options={countryOptions} defaultValue='+886' />
+                <Field component={renderSelect} required label='區碼' name='countryCode' options={countryOptions} defaultValue='+886' />
               </Form.Field>
               <Form.Field width={12}>
                 <Field component={renderInput} type='text' required label='手機' name='phone' />
@@ -80,7 +80,7 @@ export class LoginComponent extends Component {
 
 const validate = (formProps) => {
   let errors = {}
-  const requiredFields = ['areaCode', 'email', 'password', 'phone']
+  const requiredFields = ['countryCode', 'email', 'password', 'phone']
 
   requiredFields.forEach(field => {
     if (!formProps[field]) {
