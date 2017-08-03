@@ -20,7 +20,7 @@ export class ForgotPwComponent extends Component {
       await this.props.onResetPw(formProps)
       toastr.success('密碼更新成功，請用新密碼登入！');
     } catch (e) {
-      toastr.error(e.Message);
+      toastr.error(e.msg);
     }
   }
 
@@ -31,7 +31,7 @@ export class ForgotPwComponent extends Component {
         ...this.props.forgotPw.values
       });
     } catch (e) {
-      toastr.error(e.Message);
+      toastr.error(e.msg);
     }
   }
 

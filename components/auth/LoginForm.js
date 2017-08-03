@@ -22,7 +22,7 @@ export class LoginComponent extends Component {
       });
       window.location = '/member/updatepw'
     } catch (e) {
-      toastr.error(e.Message);
+      toastr.error(e.msg);
     }
   }
 

@@ -19,7 +19,7 @@ export class UpdatePwComponent extends Component {
       await this.props.onUpdatePw(formProps)
       toastr.success('密碼更新成功');
     } catch (e) {
-      toastr.error(e.Message);
+      toastr.error(e.msg);
     }
   }
 

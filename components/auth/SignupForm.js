@@ -23,7 +23,7 @@ export class SignupComponent extends Component {
       });
       toastr.success('註冊完成！');
     } catch (e) {
-      toastr.error(e.Message);
+      toastr.error(e.msg);
     }
   }
 

@@ -19,7 +19,7 @@ export class MeComponent extends Component {
       const response = await this.props.onSignup(formProps)
       toastr.success('更新成功！');
     } catch (e) {
-      toastr.error(e.Message);
+      toastr.error(e.msg);
     }
   }
 
