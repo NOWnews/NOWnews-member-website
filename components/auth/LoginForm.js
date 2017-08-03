@@ -16,8 +16,11 @@ export class LoginComponent extends Component {
 
   async handleFormSubmit (formProps) {
     try {
-      await this.props.onLogin(formProps)
-      window.location = '/member/me'
+      await this.props.onLogin({
+        provider: this.props.auth.type,
+        ...formProps
+      });
+      window.location = '/member/updatepw'
     } catch (e) {
       toastr.error(e.Message);
     }

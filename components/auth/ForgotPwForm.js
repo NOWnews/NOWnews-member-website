@@ -44,6 +44,13 @@ export class ForgotPwComponent extends Component {
       { key: 'taiwan', value: '886', text: '台灣 +886'},
       { key: 'china', value: '86', text: '大陸 +86'}
     ]
+
+    const { values: formValues } = this.props.signup || {}
+    let activeVerifyButton = false
+    if (formValues) {
+      activeVerifyButton = isPhone ? (formValues.countryCode && formValues.phone) : formValues.email;
+    }
+
     return (
       <div>
         <Segment stacked>
@@ -82,6 +89,7 @@ export class ForgotPwComponent extends Component {
               <Form.Field width={3}>
                 <Button type='button' content='取得驗證碼' fluid
                   color='yellow'
+                  disabled={!activeVerifyButton}
                   loading={showVerifyCodeTimer}
                   onClick={this.getVerifyCode} />
                 {showVerifyCodeTimer && <span>還有 {verifyCodeTimer} 秒 ...</span>}

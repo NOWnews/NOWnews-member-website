@@ -22,8 +22,8 @@ const actionTypes = {
 
 export const getVerifyCode = (formProps) => async dispatch => {
   try {
-    dispatch({ type: actionTypes.START_TIMER });
     await axios.post('/api/account/verifyCode', formProps);
+    dispatch({ type: actionTypes.START_TIMER });
     return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
   } catch ({ response }) {
     dispatch({ type: actionTypes.STOP_TIMER });

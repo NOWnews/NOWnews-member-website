@@ -17,7 +17,10 @@ export class SignupComponent extends Component {
 
   async handleFormSubmit (formProps) {
     try {
-      await this.props.onSignup(formProps)
+      await this.props.onSignup({
+        provider: this.props.auth.type,
+        ...formProps
+      });
       toastr.success('註冊完成！');
     } catch (e) {
       toastr.error(e.Message);
@@ -26,12 +29,12 @@ export class SignupComponent extends Component {
 
   async getVerifyCode () {
     try {
-      const response = await this.props.onForgotPw({
+      const response = await this.props.getVerifyCode({
         provider: this.props.auth.type,
-        ...this.props.forgotPw.values
+        ...this.props.signup.values
       });
     } catch (e) {
-      toastr.error(e.Message);
+      toastr.error(e.msg);
     }
   }
 
@@ -44,6 +47,13 @@ export class SignupComponent extends Component {
       { key: 'taiwan', value: '886', text: '台灣 +886'},
       { key: 'china', value: '86', text: '大陸 +86'}
     ]
+
+    const { values: formValues } = this.props.signup || {};
+    let activeVerifyButton = false;
+    if (formValues) {
+      activeVerifyButton = isPhone ? (formValues.countryCode && formValues.phone) : formValues.email;
+    }
+
     return (
       <div>
         <Segment stacked>
@@ -81,8 +91,9 @@ export class SignupComponent extends Component {
               <Form.Field width={3}>
                 <Button type='button' content='取得驗證碼' fluid
                   color='yellow'
+                  disabled={!activeVerifyButton}
                   loading={showVerifyCodeTimer}
-                  onClick={this.props.getVerifyCode} />
+                  onClick={this.getVerifyCode} />
                 {showVerifyCodeTimer && <span>還有 {verifyCodeTimer} 秒 ...</span>}
               </Form.Field>
             </Form.Group>

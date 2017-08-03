@@ -6,7 +6,7 @@ import { Field, reduxForm } from 'redux-form'
 import { Button, Form, Modal, Header } from 'semantic-ui-react'
 import renderInput from '../form/renderInput'
 import renderSelect from '../form/renderSelect'
-import { switchType, getVerifyCode, onSignup }  from '../../modules/auth'
+import { switchType, onSignup }  from '../../modules/auth'
 
 export class MeComponent extends Component {
   constructor (props, context) {
@@ -71,6 +71,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({switchType, getVerifyCode, onSignup}, dispatch)
+  return bindActionCreators({switchType, onSignup}, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MeForm)
