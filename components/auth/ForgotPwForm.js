@@ -18,7 +18,7 @@ export class ForgotPwComponent extends Component {
   async handleFormSubmit (formProps) {
     try {
       await this.props.onResetPw(formProps)
-      toastr.success('密碼更新成功，請用新密碼嘗試登入！');
+      toastr.success('密碼更新成功，請用新密碼登入！');
     } catch (e) {
       toastr.error(e.Message);
     }
@@ -45,12 +45,11 @@ export class ForgotPwComponent extends Component {
       { key: 'china', value: '86', text: '大陸 +86'}
     ]
 
-    const { values: formValues } = this.props.signup || {}
+    const { values: formValues } = this.props.forgotPw || {}
     let activeVerifyButton = false
     if (formValues) {
       activeVerifyButton = isPhone ? (formValues.countryCode && formValues.phone) : formValues.email;
     }
-
     return (
       <div>
         <Segment stacked>
