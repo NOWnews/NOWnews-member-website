@@ -9,6 +9,7 @@ import renderSelect from '../form/renderSelect'
 import { switchType, onSignup }  from '../../modules/auth'
 
 export class MeComponent extends Component {
+
   constructor (props, context) {
     super(props, context)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -24,16 +25,19 @@ export class MeComponent extends Component {
   }
 
   render () {
-    const { type, verifyCodeTimer, isLoading } = this.props.auth;
-    const isPhone = type === 'phone';
-    const isEmail = type === 'email';
-    const showVerifyCodeTimer = verifyCodeTimer > 0;
+    const { isLoading } = this.props.auth;
     return (
       <div>
         <Header textAlign='center' as='h1' >會員資料</Header>
         <Form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
           <Form.Field>
+            <Field component={renderInput} type='text' required disabled name='account' />
+          </Form.Field>
+          <Form.Field>
             <Field component={renderInput} type='text' required label='暱稱（可中文、英文、數字）' name='nickname' />
+          </Form.Field>
+          <Form.Field>
+            <Field component={renderInput} type='date' label='生日' name='birthday' />
           </Form.Field>
           <Button type='submit' fluid primary loading={isLoading}>送出</Button>
         </Form>
@@ -44,7 +48,7 @@ export class MeComponent extends Component {
 
 const validate = (formProps) => {
   let errors = {}
-  const requiredFields = ['areaCode', 'code', 'nickname']
+  const requiredFields = ['nickname']
 
   requiredFields.forEach(field => {
     if (!formProps[field]) {
@@ -67,7 +71,8 @@ const MeForm = reduxForm({
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  me: state.form.me
+  me: state.form.me,
+  initialValues: state.auth.member
 })
 
 const mapDispatchToProps = (dispatch) => {

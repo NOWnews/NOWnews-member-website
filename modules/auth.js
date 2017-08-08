@@ -1,9 +1,7 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunkMiddleware from 'redux-thunk';
 import axios from 'axios';
 
 const initialState = {
+  member: {},
   error: null,
   isLoading: false,
   type: 'phone',
@@ -14,6 +12,7 @@ const actionTypes = {
   FORM_SUBMIT_REQUEST: 'FORM_SUBMIT_REQUEST',
   FORM_SUBMIT_SUCCESS: 'FORM_SUBMIT_SUCCESS',
   FORM_SUBMIT_FAIL: 'FORM_SUBMIT_FAIL',
+  INIT_MEMBER_DATA: 'INIT_MEMBER_DATA',
   START_TIMER: 'START_TIMER',
   STOP_TIMER: 'STOP_TIMER',
   SWITHCH_TYPE: 'SWITHCH_TYPE',
@@ -92,6 +91,11 @@ export const switchType = (type) => dispatch => {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.INIT_MEMBER_DATA:
+      return {
+        ...state,
+        member: action.payload,
+      }
     case actionTypes.FORM_SUBMIT_REQUEST:
       return {
         ...state,

@@ -20,7 +20,7 @@ export class LoginComponent extends Component {
         provider: this.props.auth.type,
         ...formProps
       });
-      window.location = '/member/updatepw'
+      window.location = '/member/me'
     } catch (e) {
       toastr.error(e.msg);
     }

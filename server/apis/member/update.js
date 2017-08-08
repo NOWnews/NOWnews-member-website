@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
         const formatData = qs.stringify(data);
         const { data: member } = await apiServ.patch('/member', formatData);
 
-        debug('member = %j', member);
+        debug('updated member = %j', member);
 
         return res.json(member);
 

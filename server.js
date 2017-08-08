@@ -50,7 +50,7 @@ app.prepare().then(() => {
   })
 
   server.get('/', isAuthenticated, (req, res) => {
-    return app.render(req, res, '/member/updatePw', req.query)
+    return app.render(req, res, '/member/me', req.query)
   })
 
   server.get('*', (req, res) => {
