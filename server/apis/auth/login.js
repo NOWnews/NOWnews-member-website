@@ -24,7 +24,7 @@ module.exports = async (req, res, next) => {
 
             const result = await nowlinkServ.post('/signin', qs.stringify(NOWLinkData));
 
-            debug('nowlinkServ signin result = %j', result);
+            debug('nowlinkServ signin result = %j', result.data);
         }
 
         req.session.member = {

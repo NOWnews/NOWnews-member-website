@@ -15,15 +15,15 @@ module.exports = async (req, res, next) => {
 
         if (MAC) {
             const NOWLinkData = {
-                identity: member.identity,
-                provider: member.provider,
+                identity: member.data.identity,
+                provider: member.data.provider,
                 mac: MAC
             }
             debug('From BOX = %j', NOWLinkData);
 
             const result = await nowlinkServ.post('/signin', qs.stringify(NOWLinkData));
 
-            debug('nowlinkServ signin result = %j', result);
+            debug('nowlinkServ signin result = %j', result.data);
         }
 
         return res.json(member);
