@@ -11,15 +11,21 @@ module.exports = async (req, res, next) => {
         const { data: member } = await apiServ.post('/member/signup', formatData);
 
         debug('signup member = %j', member);
+        debug('MAC Address = %s', MAC);
 
         if (MAC) {
             const NOWLinkData = {
                 identity: member.identity,
+                provider: member.provider,
                 mac: MAC
             }
-            console('From BOX')
-            // await nowlinkServ.post('/register', qs.stringify(NOWLinkData));
+            debug('From BOX = %j', NOWLinkData);
+
+            const result = await nowlinkServ.post('/signin', qs.stringify(NOWLinkData));
+
+            debug('nowlinkServ signin result = %j', result);
         }
+
         return res.json(member);
 
     } catch(err) {

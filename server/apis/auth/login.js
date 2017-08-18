@@ -12,16 +12,21 @@ module.exports = async (req, res, next) => {
         const { data: member } = await apiServ.post('/member/login', formatData);
 
         debug('logined member = %j', member);
+        debug('MAC Address = %s', MAC);
 
         if (MAC) {
             const NOWLinkData = {
-                memberId: member.data.id,
+                provider: member.data.account.provider,
                 identity: member.data.account.identity,
                 mac: MAC
             }
-            console('From BOX')
-            // await nowlinkServ.post('/status', qs.stringify(NOWLinkData));
+            debug('From BOX = %j', NOWLinkData);
+
+            const result = await nowlinkServ.post('/signin', qs.stringify(NOWLinkData));
+
+            debug('nowlinkServ signin result = %j', result);
         }
+
         req.session.member = {
             ...member.data,
             token: member.token,

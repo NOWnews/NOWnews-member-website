@@ -22,6 +22,7 @@ export class SignupComponent extends Component {
         ...formProps
       });
       toastr.success('註冊完成！');
+      window.location = `/login${window.location.search}`;
     } catch (e) {
       toastr.error(e.msg);
     }

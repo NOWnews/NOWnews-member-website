@@ -1,6 +1,7 @@
 {
     "mode": "develop",
     "apiServer": "http://35.194.141.188:8080/v1",
+    "nowlinkServ": "http://35.194.141.188:8888/v1",
     "headers": {
         "X-NOWnews-API": ["NOWnewsIsFeature"]
     }
