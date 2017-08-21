@@ -21,9 +21,10 @@ const actionTypes = {
 
 export const getVerifyCode = (formProps) => async dispatch => {
   try {
-    await axios.post('/api/account/verifyCode', formProps);
     dispatch({ type: actionTypes.START_TIMER });
-    return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
+    clearInterval(window.timerInterval);
+    await axios.post('/api/account/verifyCode', formProps);
+    window.timerInterval = setInterval(() => dispatch({ type: actionTypes.TICK }), 1000);
   } catch ({ response }) {
     dispatch({ type: actionTypes.STOP_TIMER });
     throw(response.data)
@@ -33,8 +34,9 @@ export const getVerifyCode = (formProps) => async dispatch => {
 export const onForgotPw = (formProps) => async dispatch => {
   try {
     dispatch({ type: actionTypes.START_TIMER });
+    clearInterval(window.timerInterval);
     const res = await axios.post('/api/auth/forgotpw', formProps);
-    return setInterval(() => dispatch({ type: actionTypes.TICK }), 1000)
+    window.timerInterval = setInterval(() => dispatch({ type: actionTypes.TICK }), 1000);
   } catch ({ response }) {
     dispatch({ type: actionTypes.STOP_TIMER });
     throw(response.data)

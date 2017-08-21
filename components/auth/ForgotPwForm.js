@@ -25,6 +25,9 @@ export class ForgotPwComponent extends Component {
   }
 
   async getVerifyCode () {
+    if (this.props.auth.verifyCodeTimer > 0) {
+      return;
+    }
     try {
       const response = await this.props.onForgotPw({
         provider: this.props.auth.type,
@@ -91,7 +94,7 @@ export class ForgotPwComponent extends Component {
                   disabled={!activeVerifyButton}
                   loading={showVerifyCodeTimer}
                   onClick={this.getVerifyCode} />
-                {showVerifyCodeTimer && <span>還有 {verifyCodeTimer} 秒 ...</span>}
+                {showVerifyCodeTimer && <span>請稍候，還有 {verifyCodeTimer} 秒 ...</span>}
               </Form.Field>
             </Form.Group>
             <Form.Group widths='equal'>
